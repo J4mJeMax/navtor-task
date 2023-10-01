@@ -14,12 +14,12 @@ export class NavigationComponent {
       {
         label: 'Vessels',
         icon: 'pi pi-fw pi-file',
-        routerLink: '/vessels'
+        routerLink: ['/vessels']
       },
       {
         label: 'Emissions',
         icon: 'pi pi-fw pi-pencil',
-        routerLink: '/emissions'
+        routerLink: ['/emissions']
       }
     ];
   }

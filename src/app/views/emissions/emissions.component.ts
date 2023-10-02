@@ -29,7 +29,6 @@ export class EmissionsComponent {
     ]).subscribe(([vessels, emissions]) => {
       this.emissionsData = emissions;
       this.assignVesselsToEmissionData(vessels);
-      this.initializeChart();
     });
   }
 
@@ -50,22 +49,50 @@ export class EmissionsComponent {
 
   initializeChart(title: string = '') {
     this.chart = Highcharts.chart('highcharts-container', {
+      chart: {
+        backgroundColor: '#091a32',
+      },
       title: {
-        text: title
+        text: title,
+        style: {
+          color: 'white'
+        }
       },
       xAxis: {
         categories: [],
-        type: 'datetime', // Specify that the X-axis should be treated as datetime
+        type: 'datetime',
+        labels: {
+          formatter: function () {
+            const timestamp = Number(this.value);
+
+            if (timestamp === this.axis.min || (timestamp % (10 * 24 * 3600 * 1000) === 0)) {
+              const date = new Date(timestamp);
+              const day = date.getDate();
+              const month = date.toLocaleString('default', { month: 'short' });
+              const year = date.getFullYear();
+
+              return day + ' ' + month + ' ' + year;
+            } else {
+              return '';
+            }
+          },
+          style: {
+            color: 'white'
+          }
+        }
       },
       yAxis: {
         title: {
-          text: 'Emissions'
-        }
+          text: 'Emissions',
+          style: {
+            color: 'white'
+          }
+        },
       },
-      series: [], // Initialize with an empty series array
+      series: [],
     });
 
-    this.updateChart(); // Call updateChart to populate the chart with initial data
+    this.updateChart();
   }
 
 
@@ -108,27 +135,22 @@ export class EmissionsComponent {
 
         this.chart?.series.forEach((series) => series.remove());
         this.chart?.addSeries({
-          name: 'CO2 Emissions',
-          data: CO2EmissionsData,
-          type: 'line',
-        });
-        this.chart?.addSeries({
-          name: 'SOX Emissions',
+          name: 'SOX',
           data: SOXEmissionsData,
           type: 'line',
         });
         this.chart?.addSeries({
-          name: 'CH4 Emissions',
+          name: 'Methane',
           data: CH4EmissionsData,
           type: 'line',
         });
         this.chart?.addSeries({
-          name: 'NOX Emissions',
+          name: 'NOX',
           data: NOXEmissionsData,
           type: 'line',
         });
         this.chart?.addSeries({
-          name: 'PM Emissions',
+          name: 'PM',
           data: PMEmissionsData,
           type: 'line',
         });

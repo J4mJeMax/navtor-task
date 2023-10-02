@@ -2,9 +2,13 @@
   <h1>Vessel Emissions</h1>
   <div class="dropdown-container">
     <label for="vesselSelect">Select Vessel:</label>
-    <select id="vesselSelect" [(ngModel)]="selectedVessel" (change)="onVesselChange()">
-      <option *ngFor="let vessel of vessels" [value]="vessel">{{ vessel }}</option>
-    </select>
+    <p-dropdown
+      id="vesselSelect"
+      [(ngModel)]="selectedVessel"
+      (onChange)="onVesselChange()"
+      [options]="vessels"
+      placeholder="Select a vessel"
+    ></p-dropdown>
   </div>
-  <div id="highcharts-container" style="width: 100%; height: 400px;"></div>
+  <div id="highcharts-container"></div>
 </div>

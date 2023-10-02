@@ -4,6 +4,8 @@ import { EmissionsComponent } from './emissions.component';
 import {TableModule} from "primeng/table";
 import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import {DropdownModule} from "primeng/dropdown";
+import {BrowserModule} from "@angular/platform-browser";
 
 const Routes = RouterModule.forChild([
   { path: '', component: EmissionsComponent },
@@ -17,7 +19,8 @@ const Routes = RouterModule.forChild([
     CommonModule,
     TableModule,
     Routes,
-    FormsModule
+    FormsModule,
+    DropdownModule,
   ]
 })
 export class EmissionsModule { }
